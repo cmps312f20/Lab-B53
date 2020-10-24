@@ -10,16 +10,21 @@ import retrofit2.Retrofit
 object BeneficiaryRepo {
     //you will create the retrofit
     val cid = 10001
-    private const val BASE_URL = "https://cmps312banking.herokuapp.com/api/"
+    private const val BASE_URL  =  "https://cmps312banking.herokuapp.com/api/"
+
+    //the server will send us json -> kotlin object
+    //we will send the server kotlin -> json object
     private val contentType = "application/json".toMediaType()
-    private val converterFactory = Json { ignoreUnknownKeys =true }.asConverterFactory(contentType)
+    private val convertorFactory = Json {ignoreUnknownKeys = true}.asConverterFactory(contentType)
 
     val beneficiaryService by lazy {
-        Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(converterFactory).build()
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(convertorFactory)
+            .build()
             .create(BeneficiaryService::class.java)
     }
-
     suspend fun getBeneficiaries() = beneficiaryService.getBeneficiaries(cid)
-    suspend fun addBeneficiaries(beneficiary : Beneficiary) = beneficiaryService.addBeneficiaries(cid, beneficiary )
+    suspend fun addBeneficiaries(beneficiary : Beneficiary) = beneficiaryService.addBeneficiaries(cid, beneficiary)
     suspend fun deleteBeneficiaries(beneficiary : Beneficiary) = beneficiaryService.deleteBeneficiaries(cid, beneficiary.accountNo)
 }

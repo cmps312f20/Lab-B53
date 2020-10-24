@@ -33,8 +33,6 @@ class BeneficiaryViewModel : ViewModel() {
         viewModelScope.launch {
 
             async { BeneficiaryRepo.deleteBeneficiaries(beneficiary) }.await()
-
-
             _beneficiaries.value?.let {
                 _beneficiaries.value = it - beneficiary
             }
