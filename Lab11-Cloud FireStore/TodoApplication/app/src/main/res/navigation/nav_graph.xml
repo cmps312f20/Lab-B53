@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/projectListFragment">
+
+    <fragment
+        android:id="@+id/todoListFragment"
+        android:name="cmps312.lab.todoapplication.ui.todo.TodoListFragment"
+        android:label="Todo List"
+        tools:layout="@layout/fragment_todo_list">
+        <action
+            android:id="@+id/toUpdateTodoFragment"
+            app:destination="@id/updateTodoFragment" />
+        <action
+            android:id="@+id/toAddTodoFragment"
+            app:destination="@id/addTodoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTodoFragment"
+        android:name="cmps312.lab.todoapplication.ui.todo.AddTodoFragment"
+        android:label="Add Todo"
+        tools:layout="@layout/fragment_add_todo" />
+    <fragment
+        android:id="@+id/updateTodoFragment"
+        android:name="cmps312.lab.todoapplication.ui.todo.UpdateTodoFragment"
+        android:label="Update Todo"
+        tools:layout="@layout/fragment_update_todo" />
+    <fragment
+        android:id="@+id/projectListFragment"
+        android:name="cmps312.lab.todoapplication.ui.project.ProjectListFragment"
+        android:label="Project List"
+        tools:layout="@layout/fragment_project_list">
+        <action
+            android:id="@+id/toTodoListFragment"
+            app:destination="@id/todoListFragment" />
+    </fragment>
+</navigation>
