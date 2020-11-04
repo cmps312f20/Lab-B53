@@ -72,7 +72,6 @@ class ProjectViewModel(application: Application) : AndroidViewModel(application)
     private fun listenToProjectsCollection() {
         TodoListRepo.projectDocumentRef.addSnapshotListener { snapshot, error ->
             if (error != null) return@addSnapshotListener
-//            _projects.value = snapshot!!.toObjects(Project::class.java)
 
             val updatedProject = mutableListOf<Project>()
             snapshot!!.forEach {
