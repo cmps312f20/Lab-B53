@@ -31,9 +31,23 @@ object TodoListRepo {
     suspend fun deleteProject(project: Project) = projectDocumentRef
         .document(project.projectId).delete()
 
-    suspend fun getTodoListByProject(pid: String) = null
-    suspend fun addTodo(todo: Todo) = null
-    suspend fun getTodo(id: String) = null
-    suspend fun deleteTodo(todo: Todo) = null
-    suspend fun updateToDo(todo: Todo) = null
+    suspend fun getTodoListByProject(pid: String): MutableList<Todo> {
+        val snapshot = todosDocumentRef.whereEqualTo("projectId", pid).get().await()
+        val todos = mutableListOf<Todo>()
+
+        snapshot?.forEach {
+            val todo = it.toObject(Todo::class.java)
+            todo.todoId = it.id
+            todos.add(todo)
+        }
+        return todos
+    }
+
+    suspend fun addTodo(todo: Todo) = todosDocumentRef.add(todo)
+        .addOnSuccessListener { Log.d(TAG, "Added successfully") }
+        .addOnFailureListener { Log.d(TAG, "Failed to add the Todo")}
+
+    suspend fun getTodo(id: String) = todosDocumentRef.document(id).get().await().toObject(Todo::class.java)
+    suspend fun deleteTodo(todo: Todo) = todo.todoId?.let { todosDocumentRef.document(it).delete().await() }
+    suspend fun updateToDo(todo: Todo) = todo.todoId?.let { todosDocumentRef.document(it).set(todo).await() }
 }
