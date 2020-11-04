@@ -26,14 +26,14 @@ class ProjectViewModel(application: Application) : AndroidViewModel(application)
 
     init {
         listenToProjectChanges()
+        listenToTodoChanges()
     }
 
     fun getTodos(projectId: String) {
         _todos.value = listOf<Todo>() //clear the list
         viewModelScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.Main) {
-//                _todos.value =
-//                    cmps312.lab.todoapplication.repository.TodoListRepo.getTodoListByProject(projectId)
+                _todos.value = TodoListRepo.getTodoListByProject(projectId)
             }
         }
     }
@@ -65,6 +65,21 @@ class ProjectViewModel(application: Application) : AndroidViewModel(application)
     fun deleteProject(project: Project) {
         viewModelScope.launch(Dispatchers.IO) {
             TodoListRepo.deleteProject(project)
+        }
+    }
+    private fun listenToTodoChanges() {
+        TodoListRepo.todosDocumentRef.addSnapshotListener { snapshot, error ->
+            if (error != null) {
+                Log.d("TAG", "Failed to listen $snapshot")
+                return@addSnapshotListener
+            }
+            val todos = mutableListOf<Todo>()
+            snapshot?.forEach {
+                val todo = it.toObject(Todo::class.java)
+                todo.todoId = it.id
+                todos.add(todo)
+            }
+            _todos.value = todos
         }
     }
 
