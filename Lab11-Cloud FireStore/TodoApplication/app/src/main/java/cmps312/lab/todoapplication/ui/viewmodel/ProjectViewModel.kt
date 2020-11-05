@@ -73,13 +73,16 @@ class ProjectViewModel(application: Application) : AndroidViewModel(application)
                 Log.d("TAG", "Failed to listen $snapshot")
                 return@addSnapshotListener
             }
-            val todos = mutableListOf<Todo>()
-            snapshot?.forEach {
-                val todo = it.toObject(Todo::class.java)
-                todo.todoId = it.id
-                todos.add(todo)
+            if(selectedProject !=null){
+                val todos = mutableListOf<Todo>()
+                snapshot?.forEach {
+                    val todo = it.toObject(Todo::class.java)
+                    todo.todoId = it.id
+                    if(todo.projectId == selectedProject?.projectId)
+                        todos.add(todo)
+                }
+                _todos.value = todos  //recyclerview
             }
-            _todos.value = todos
         }
     }
 
