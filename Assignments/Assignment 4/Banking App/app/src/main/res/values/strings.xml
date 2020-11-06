@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Banking App</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="accounts">Accounts</string>
+    <string name="transaction">Transaction</string>
+    <string-array name="account_type">
+        <item>Current</item>
+        <item>Saving</item>
+    </string-array>
+    <string-array name="transaction_type">
+        <item>Withdraw</item>
+        <item>Deposit</item>
+    </string-array>
+
+    <string-array name="account_filter">
+        <item>All</item>
+        <item>Current</item>
+        <item>Saving</item>
+
+    </string-array>
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/accountsListFragment">
+
+    <fragment
+        android:id="@+id/accountsListFragment"
+        android:name="com.cmps312.bankingapp.ui.account.AccountsListFragment"
+        android:label="Accounts List"
+        tools:layout="@layout/fragment_accounts_list">
+        <action
+            android:id="@+id/action_accountsListFragment_to_addAccountFragment"
+            app:destination="@id/addAccountFragment" />
+        <action
+            android:id="@+id/action_accountsListFragment_to_transactionFragment"
+            app:destination="@id/transactionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addAccountFragment"
+        android:name="com.cmps312.bankingapp.ui.account.AddUpdateAccountFragment"
+        android:label="Account Editor"
+        tools:layout="@layout/fragment_add_update_account" />
+    <fragment
+        android:id="@+id/transactionFragment"
+        android:name="com.cmps312.bankingapp.ui.transaction.TransactionFragment"
+        android:label="Transaction"
+        tools:layout="@layout/fragment_transaction" />
+</navigation>
