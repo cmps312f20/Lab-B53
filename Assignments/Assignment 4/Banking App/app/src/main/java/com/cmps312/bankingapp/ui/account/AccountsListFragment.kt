@@ -28,7 +28,7 @@ class AccountsListFragment : Fragment(R.layout.fragment_accounts_list) {
         filterSP.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parentView: AdapterView<*>?,
-                selectedItemView: View,
+                selectedItemView: View?,
                 position: Int,
                 id: Long
             ) {
