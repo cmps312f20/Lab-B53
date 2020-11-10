@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import cmps312.lab.todoapplication.model.Project
 import cmps312.lab.todoapplication.model.Todo
 import cmps312.lab.todoapplication.repository.TodoListRepo
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -58,6 +60,7 @@ class ProjectViewModel(application: Application) : AndroidViewModel(application)
 
     fun addProject(project: Project) {
         viewModelScope.launch(Dispatchers.IO) {
+//            project.userId =  Firebase.auth.currentUser
             TodoListRepo.addProject(project).await()
         }
     }

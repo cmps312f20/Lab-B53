@@ -20,7 +20,7 @@ object TodoListRepo {
         db.firestoreSettings = firestoreSettings { isPersistenceEnabled = true }
     }
 
-//    suspend fun getProjects()= projectDocumentRef.get().await().toObjects(Project::class.java)
+    suspend fun getProjects()= projectDocumentRef.get().await().toObjects(Project::class.java)
 
     fun addProject(project: Project) = projectDocumentRef.add(project)
         .addOnSuccessListener { Log.d(TAG, "Project successfully added: ") }
@@ -31,7 +31,8 @@ object TodoListRepo {
         projectDocumentRef.document(project.projectId).delete().await()
 
     suspend fun getTodoListByProject(pid: String): MutableList<Todo> {
-        val snapShot = todosDocumentRef.whereEqualTo("projectId", pid).get().await()
+        val snapShot = todosDocumentRef
+            .whereEqualTo("projectId", pid).get().await()
         val todos = mutableListOf<Todo>()
         snapShot.forEach {
             val todo = it.toObject(Todo::class.java)
